@@ -152,6 +152,8 @@ class Display(object):
 
         # Split the line into an array of columns, e.g., ['0', '0x00000000', 'Some description here']
         line_columns = line.split(None, self.num_columns-1)
+        if line_columns[2].startswith('JFFS'):
+            return ''
         if line_columns:
             # Find where the start of the last column (description) starts in the line of text.
             # All line wraps need to be aligned to this offset.
