@@ -150,8 +150,6 @@ class Display(object):
         offset = 0
         self.string_parts = []
 
-        if 'JSSF' in line:
-            return ''
         # Split the line into an array of columns, e.g., ['0', '0x00000000', 'Some description here']
         line_columns = line.split(None, self.num_columns-1)
         if line_columns:
@@ -185,7 +183,7 @@ class Display(object):
             formatted_line += delim.join(self.string_parts)
         else:
             formatted_line = line
-
+        print('Value of formatted line - {}'.format(formatted_line))
         return formatted_line
 
     def _configure_formatting(self):
