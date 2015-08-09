@@ -108,7 +108,9 @@ class Display(object):
 
         if not self.quiet and stdout:
             try:
-                sys.stdout.write(self._format_line(line.strip()) + "\n")
+                w_line = self._format_line(line.strip())
+                if w_line != '':
+                    sys.stdout.write(w_line + "\n")
                 sys.stdout.flush()
             except IOError as e:
                 pass
