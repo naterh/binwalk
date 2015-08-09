@@ -7,6 +7,10 @@ import datetime
 import binwalk.core.common
 from binwalk.core.compat import *
 
+
+CHK_MD5 = False
+
+
 class Display(object):
     '''
     Class to handle display of output and writing to log files.
@@ -54,6 +58,7 @@ class Display(object):
         self.custom_verbose_args = args
 
     def header(self, *args, **kwargs):
+        global CHK_MD5
         file_name = None
         self.num_columns = len(args)
 
@@ -69,9 +74,12 @@ class Display(object):
                 self.log("", [file_name, md5sum, timestamp])
 
             self._fprint("%s", "\n", csv=False)
-            self._fprint("Scan Time:     %s\n", [timestamp], csv=False, filter=False)
-            self._fprint("Target File:   %s\n", [file_name], csv=False, filter=False)
-            self._fprint("MD5 Checksum:  %s\n", [md5sum], csv=False, filter=False)
+            #self._fprint("Scan Time:     %s\n", [timestamp], csv=False, filter=False)
+            #self._fprint("Target File:   %s\n", [file_name], csv=False, filter=False)
+            if CHK_MD5:
+                self._fprint("MD5 Checksum:  %s\n", [md5sum], csv=False, filter=False)
+            else:
+                CHK_MD5 = True
             if self.custom_verbose_format and self.custom_verbose_args:
                 self._fprint(self.custom_verbose_format, self.custom_verbose_args, csv=False, filter=False)
 
