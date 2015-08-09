@@ -183,7 +183,8 @@ class Display(object):
             formatted_line += delim.join(self.string_parts)
         else:
             formatted_line = line
-        print('Value of formatted line - {}'.format(formatted_line))
+        if 'JFFS' in formatted_line:
+            return ''
         return formatted_line
 
     def _configure_formatting(self):
