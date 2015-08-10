@@ -105,10 +105,10 @@ class Display(object):
 
     def _fprint(self, fmt, columns, csv=True, stdout=True, filter=True):
         line = fmt % tuple(columns)
+        w_line = self._format_line(line.strip())
 
         if not self.quiet and stdout:
             try:
-                w_line = self._format_line(line.strip())
                 if w_line != '':
                     sys.stdout.write(w_line + "\n")
                 sys.stdout.flush()
@@ -116,7 +116,8 @@ class Display(object):
                 pass
 
         if self.fp and not (self.csv and not csv):
-            self.log(fmt, columns)
+            if w_line != '':
+                self.log(fmt, columns)
 
     def _append_to_data_parts(self, data, start, end):
         '''
